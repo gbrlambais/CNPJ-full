@@ -1,4 +1,4 @@
-﻿PATH_BD = 'data/CNPJ_full.db'
+﻿PATH_BD = '/Users/guilherme/Dropbox/electoraljustice/data/cnpj/CNPJ_full.db'
 NIVEL_MAX_DEFAULT = 3
 
 PATH_NAVEGADOR = ''

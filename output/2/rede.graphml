@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d45" for="edge" attr.name="data_entrada" attr.type="string" />
+  <key id="d44" for="edge" attr.name="qualificacao" attr.type="string" />
+  <key id="d43" for="edge" attr.name="cod_qualificacao" attr.type="string" />
+  <key id="d42" for="edge" attr.name="tipo" attr.type="string" />
+  <key id="d41" for="node" attr.name="data_sit_especial" attr.type="string" />
+  <key id="d40" for="node" attr.name="sit_especial" attr.type="string" />
+  <key id="d39" for="node" attr.name="opc_mei" attr.type="string" />
+  <key id="d38" for="node" attr.name="data_exc_simples" attr.type="string" />
+  <key id="d37" for="node" attr.name="data_opc_simples" attr.type="string" />
+  <key id="d36" for="node" attr.name="opc_simples" attr.type="string" />
+  <key id="d35" for="node" attr.name="porte" attr.type="string" />
+  <key id="d34" for="node" attr.name="capital_social" attr.type="double" />
+  <key id="d33" for="node" attr.name="qualif_resp" attr.type="string" />
+  <key id="d32" for="node" attr.name="email" attr.type="string" />
+  <key id="d31" for="node" attr.name="num_fax" attr.type="string" />
+  <key id="d30" for="node" attr.name="ddd_fax" attr.type="string" />
+  <key id="d29" for="node" attr.name="telefone_2" attr.type="string" />
+  <key id="d28" for="node" attr.name="ddd_2" attr.type="string" />
+  <key id="d27" for="node" attr.name="telefone_1" attr.type="string" />
+  <key id="d26" for="node" attr.name="ddd_1" attr.type="string" />
+  <key id="d25" for="node" attr.name="municipio" attr.type="string" />
+  <key id="d24" for="node" attr.name="cod_municipio" attr.type="string" />
+  <key id="d23" for="node" attr.name="uf" attr.type="string" />
+  <key id="d22" for="node" attr.name="cep" attr.type="string" />
+  <key id="d21" for="node" attr.name="bairro" attr.type="string" />
+  <key id="d20" for="node" attr.name="complemento" attr.type="string" />
+  <key id="d19" for="node" attr.name="numero" attr.type="string" />
+  <key id="d18" for="node" attr.name="logradouro" attr.type="string" />
+  <key id="d17" for="node" attr.name="tipo_logradouro" attr.type="string" />
+  <key id="d16" for="node" attr.name="cnae_fiscal" attr.type="string" />
+  <key id="d15" for="node" attr.name="data_inicio_ativ" attr.type="string" />
+  <key id="d14" for="node" attr.name="cod_nat_juridica" attr.type="string" />
+  <key id="d13" for="node" attr.name="nome_pais" attr.type="string" />
+  <key id="d12" for="node" attr.name="cod_pais" attr.type="string" />
+  <key id="d11" for="node" attr.name="nm_cidade_exterior" attr.type="string" />
+  <key id="d10" for="node" attr.name="motivo_situacao" attr.type="string" />
+  <key id="d9" for="node" attr.name="data_situacao" attr.type="string" />
+  <key id="d8" for="node" attr.name="situacao" attr.type="string" />
+  <key id="d7" for="node" attr.name="nome_fantasia" attr.type="string" />
+  <key id="d6" for="node" attr.name="razao_social" attr.type="string" />
+  <key id="d5" for="node" attr.name="matriz_filial" attr.type="string" />
+  <key id="d4" for="node" attr.name="cnpj" attr.type="string" />
+  <key id="d3" for="node" attr.name="cpf" attr.type="string" />
+  <key id="d2" for="node" attr.name="nivel" attr.type="int" />
+  <key id="d1" for="node" attr.name="tipo_pessoa" attr.type="int" />
+  <key id="d0" for="node" attr.name="nome" attr.type="string" />
+  <graph edgedefault="directed">
+    <node id="***643468**EDUARDO ALMEIDA PRADO ROCHA DE SIQUEIRA">
+      <data key="d0">EDUARDO ALMEIDA PRADO ROCHA DE SIQUEIRA</data>
+      <data key="d1">2</data>
+      <data key="d2">0</data>
+      <data key="d3">***643468**</data>
+    </node>
+    <node id="08080550000170">
+      <data key="d0">EDUARDO ALMEIDA PRADO ROCHA DE SIQUEIRA E OUTRO</data>
+      <data key="d1">1</data>
+      <data key="d2">1</data>
+      <data key="d4">08080550000170</data>
+      <data key="d5">1</data>
+      <data key="d6">EDUARDO ALMEIDA PRADO ROCHA DE SIQUEIRA E OUTRO</data>
+      <data key="d7" />
+      <data key="d8">02</data>
+      <data key="d9">20060523</data>
+      <data key="d10">00</data>
+      <data key="d11" />
+      <data key="d12" />
+      <data key="d13" />
+      <data key="d14">4120</data>
+      <data key="d15">20060523</data>
+      <data key="d16">0151202</data>
+      <data key="d17">ESTRADA</data>
+      <data key="d18">MUNICIPAL DE BIRIGUI A BURITAMA</data>
+      <data key="d19">KM20</data>
+      <data key="d20">FAZENDA SAO CARLOS</data>
+      <data key="d21">BAIXOTES</data>
+      <data key="d22">16200970</data>
+      <data key="d23">SP</data>
+      <data key="d24">6229</data>
+      <data key="d25">BIRIGUI</data>
+      <data key="d26">18</data>
+      <data key="d27">36425666</data>
+      <data key="d28" />
+      <data key="d29" />
+      <data key="d30">18</data>
+      <data key="d31">36425666</data>
+      <data key="d32" />
+      <data key="d33">59</data>
+      <data key="d34">0.0</data>
+      <data key="d35">05</data>
+      <data key="d36">0</data>
+      <data key="d37" />
+      <data key="d38" />
+      <data key="d39">N</data>
+      <data key="d40" />
+      <data key="d41" />
+    </node>
+    <node id="***639788**FRANCISCO ALMEIDA PRADO ROCHA DE SIQUEIRA">
+      <data key="d0">FRANCISCO ALMEIDA PRADO ROCHA DE SIQUEIRA</data>
+      <data key="d1">2</data>
+      <data key="d2">2</data>
+      <data key="d3">***639788**</data>
+    </node>
+    <edge source="***643468**EDUARDO ALMEIDA PRADO ROCHA DE SIQUEIRA" target="08080550000170">
+      <data key="d42">socio</data>
+      <data key="d43">59</data>
+      <data key="d44">Produtor Rural</data>
+      <data key="d45">20060523</data>
+    </edge>
+    <edge source="***639788**FRANCISCO ALMEIDA PRADO ROCHA DE SIQUEIRA" target="08080550000170">
+      <data key="d42">socio</data>
+      <data key="d43">59</data>
+      <data key="d44">Produtor Rural</data>
+      <data key="d45">20060523</data>
+    </edge>
+  </graph>
+</graphml>

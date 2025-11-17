@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<!-- Adaptado de: http://bl.ocks.org/fancellu/2c782394602a93921faff74e594d1bb1 
+     GNU General Public License, version 3. -->
+<html lang="en" encoding="utf-8">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        html {
+          font-family: sans-serif, verdana;
+          font-size: 12px;
+        }
+
+        html, body { margin:0; padding:0; overflow:hidden }
+        svg { height:100%; width:100% }
+
+        .node { font-size: 10px; opacity: .8; cursor: pointer;}
+
+        .link { stroke: #999; stroke-opacity: .5; stroke-width: 1px; }
+
+        #liga_desliga {
+            float: right;
+            padding-right: 10px;
+            padding-top: 3px;
+        }
+
+        #liga_desliga input {
+            vertical-align: middle;
+            position: relative;
+            bottom: 1px;
+        }
+
+        #liga_desliga label {
+            padding-left: 10px;
+        }
+
+        div.tooltip {
+          color: white;
+          position: absolute;
+          text-align: left;
+          width: 380px;
+          height: auto;
+          padding: 10px;
+          font-family: sans-serif,verdana;
+          font-size: 12px;
+          background: #212121;
+          border: 0px;
+          border-radius: 2px;
+          pointer-events: none;
+          z-index: 10;
+          box-shadow: 3px 3px 1px #aaaaaa;
+        }
+
+    </style>
+</head>
+<body>
+<div id="liga_desliga">Exibir rótulos de: 
+    <label><input type="checkbox" checked="1" onClick="nodeLabel_OnOff();" />Empresas/Sócios</label>
+    <label><input type="checkbox" onClick="edgeLabel_OnOff();" />Vínculos</label>
+</div>
+<svg width="1200" height="700"></svg>
+
+<script src="http://d3js.org/d3.v4.min.js" type="text/javascript"></script>
+<script src="http://d3js.org/d3-selection-multi.v1.js"></script>
+
+<script type="application/json" id="grafo">
+    {"directed": true, "multigraph": false, "graph": {}, "nodes": [{"nome": "GILMAR FERREIRA MENDES", "tipo_pessoa": 2, "nivel": 0, "cpf": "***259691**", "id": "***259691**GILMAR FERREIRA MENDES"}, {"nome": "INSTITUTO BRASILIENSE DE DIREITO PUBLICO IDP LTDA", "tipo_pessoa": 1, "nivel": 1, "cnpj": "02474172000122", "matriz_filial": "1", "razao_social": "INSTITUTO BRASILIENSE DE DIREITO PUBLICO IDP LTDA", "nome_fantasia": "", "situacao": "02", "data_situacao": "20000602", "motivo_situacao": "00", "nm_cidade_exterior": "", "cod_pais": "", "nome_pais": "", "cod_nat_juridica": "2062", "data_inicio_ativ": "19980417", "cnae_fiscal": "8533300", "tipo_logradouro": "QUADRA", "logradouro": "SGAS 607", "numero": "S/N", "complemento": "CONJ  D MODULO 49               VIA L2 SUL", "bairro": "ASA SUL", "cep": "70200670", "uf": "DF", "cod_municipio": "9701", "municipio": "BRASILIA", "ddd_1": "61", "telefone_1": "35356525", "ddd_2": "", "telefone_2": "", "ddd_fax": "", "num_fax": "", "email": "", "qualif_resp": "49", "capital_social": 120600000.0, "porte": "05", "opc_simples": "0", "data_opc_simples": "", "data_exc_simples": "", "opc_mei": "N", "sit_especial": "", "data_sit_especial": "", "id": "02474172000122"}, {"nome": "IDP CURSOS E PROJETOS LTDA", "tipo_pessoa": 1, "nivel": 1, "cnpj": "15352563000116", "matriz_filial": "1", "razao_social": "IDP CURSOS E PROJETOS LTDA", "nome_fantasia": "", "situacao": "02", "data_situacao": "20120312", "motivo_situacao": "00", "nm_cidade_exterior": "", "cod_pais": "", "nome_pais": "", "cod_nat_juridica": "2062", "data_inicio_ativ": "20120312", "cnae_fiscal": "8533300", "tipo_logradouro": "SETOR", "logradouro": "SGAS QUADRA 607 CONJUNTO D PARTE A", "numero": "S/N", "complemento": "", "bairro": "ASA SUL", "cep": "70200670", "uf": "DF", "cod_municipio": "9701", "municipio": "BRASILIA", "ddd_1": "61", "telefone_1": "35356525", "ddd_2": "", "telefone_2": "", "ddd_fax": "", "num_fax": "", "email": "", "qualif_resp": "49", "capital_social": 10000000.0, "porte": "05", "opc_simples": "0", "data_opc_simples": "", "data_exc_simples": "", "opc_mei": "N", "sit_especial": "", "data_sit_especial": "", "id": "15352563000116"}, {"nome": "FRANCISCO SCHERTEL FERREIRA MENDES", "tipo_pessoa": 2, "nivel": 2, "cpf": "***232891**", "id": "***232891**FRANCISCO SCHERTEL FERREIRA MENDES"}, {"nome": "IDP TECNOLOGIAS EDUCACIONAIS LTDA", "tipo_pessoa": 1, "nivel": 2, "cnpj": "35712241000148", "matriz_filial": "1", "razao_social": "IDP TECNOLOGIAS EDUCACIONAIS LTDA", "nome_fantasia": "", "situacao": "02", "data_situacao": "20191205", "motivo_situacao": "00", "nm_cidade_exterior": "", "cod_pais": "", "nome_pais": "", "cod_nat_juridica": "2062", "data_inicio_ativ": "20191205", "cnae_fiscal": "8532500", "tipo_logradouro": "QUADRA", "logradouro": "SGAS 607, CONJUNTO D", "numero": "49", "complemento": "", "bairro": "ASA SUL", "cep": "70200670", "uf": "DF", "cod_municipio": "9701", "municipio": "BRASILIA", "ddd_1": "61", "telefone_1": "35356565", "ddd_2": "", "telefone_2": "", "ddd_fax": "", "num_fax": "", "email": "", "qualif_resp": "05", "capital_social": 100000.0, "porte": "05", "opc_simples": "0", "data_opc_simples": "", "data_exc_simples": "", "opc_mei": "N", "sit_especial": "", "data_sit_especial": "", "id": "35712241000148"}, {"nome": "SCHERTEL FERREIRA MENDES ADVOGADOS", "tipo_pessoa": 1, "nivel": 3, "cnpj": "23083197000175", "matriz_filial": "1", "razao_social": "SCHERTEL FERREIRA MENDES ADVOGADOS", "nome_fantasia": "", "situacao": "02", "data_situacao": "20150804", "motivo_situacao": "00", "nm_cidade_exterior": "", "cod_pais": "", "nome_pais": "", "cod_nat_juridica": "2232", "data_inicio_ativ": "20150804", "cnae_fiscal": "6911701", "tipo_logradouro": "SETOR", "logradouro": "SHIS QL 12 CONJUNTO 11", "numero": "04", "complemento": "PARTE B                   PENINSULA DOS             MINISTROS", "bairro": "SETOR DE HABITACOES INDIVIDUAIS SUL", "cep": "71630315", "uf": "DF", "cod_municipio": "9701", "municipio": "BRASILIA", "ddd_1": "61", "telefone_1": "32560436", "ddd_2": "", "telefone_2": "", "ddd_fax": "", "num_fax": "", "email": "", "qualif_resp": "49", "capital_social": 100000.0, "porte": "05", "opc_simples": "5", "data_opc_simples": "20160101", "data_exc_simples": "", "opc_mei": "N", "sit_especial": "", "data_sit_especial": "", "id": "23083197000175"}, {"nome": "IBI", "tipo_pessoa": 1, "nivel": 3, "cnpj": "23986844000159", "matriz_filial": "1", "razao_social": "IBI SERVICOS EDUCACIONAIS LTDA", "nome_fantasia": "IBI", "situacao": "08", "data_situacao": "20170711", "motivo_situacao": "01", "nm_cidade_exterior": "", "cod_pais": "", "nome_pais": "", "cod_nat_juridica": "2062", "data_inicio_ativ": "20160115", "cnae_fiscal": "8599699", "tipo_logradouro": "SETOR", "logradouro": "SOFN QUADRA 4 CONJUNTO H", "numero": "S/N", "complemento": "LOJA  16                  SETOR DE OFICINAS NORTE", "bairro": "ZONA INDUSTRIAL", "cep": "70634480", "uf": "DF", "cod_municipio": "9701", "municipio": "BRASILIA", "ddd_1": "61", "telefone_1": "99948388", "ddd_2": "", "telefone_2": "", "ddd_fax": "", "num_fax": "", "email": "CAIOCR@GMAIL.COM", "qualif_resp": "49", "capital_social": 500000.0, "porte": "01", "opc_simples": "6", "data_opc_simples": "20160115", "data_exc_simples": "20170711", "opc_mei": "N", "sit_especial": "", "data_sit_especial": "", "id": "23986844000159"}, {"nome": "GMF AGROPECUARIA", "tipo_pessoa": 1, "nivel": 1, "cnpj": "30863314000189", "matriz_filial": "1", "razao_social": "GMF AGROPECUARIA LTDA", "nome_fantasia": "GMF AGROPECUARIA", "situacao": "02", "data_situacao": "20180705", "motivo_situacao": "00", "nm_cidade_exterior": "", "cod_pais": "", "nome_pais": "", "cod_nat_juridica": "2062", "data_inicio_ativ": "20180705", "cnae_fiscal": "0115600", "tipo_logradouro": "ESTRADA", "logradouro": "DA USINA, KM 08 A ESQUERDA", "numero": "S/N", "complemento": "", "bairro": "ZONA RURAL", "cep": "78410000", "uf": "MT", "cod_municipio": "9009", "municipio": "ALTO PARAGUAI", "ddd_1": "65", "telefone_1": "33371337", "ddd_2": "", "telefone_2": "", "ddd_fax": "", "num_fax": "", "email": "", "qualif_resp": "49", "capital_social": 222600000.0, "porte": "05", "opc_simples": "0", "data_opc_simples": "", "data_exc_simples": "", "opc_mei": "N", "sit_especial": "", "data_sit_especial": "", "id": "30863314000189"}, {"nome": "MARIA DA CONCEICAO MENDES FRANCA", "tipo_pessoa": 2, "nivel": 2, "cpf": "***905081**", "id": "***905081**MARIA DA CONCEICAO MENDES FRANCA"}, {"nome": "UNED", "tipo_pessoa": 1, "nivel": 3, "cnpj": "03617236000160", "matriz_filial": "1", "razao_social": "UNIAO DE ENSINO SUPERIOR DE DIAMANTINO LTDA - UNED", "nome_fantasia": "UNED", "situacao": "08", "data_situacao": "20160120", "motivo_situacao": "01", "nm_cidade_exterior": "", "cod_pais": "", "nome_pais": "", "cod_nat_juridica": "2062", "data_inicio_ativ": "19991124", "cnae_fiscal": "8531700", "tipo_logradouro": "RUA", "logradouro": "RUI BARBOSA", "numero": "535", "complemento": "", "bairro": "JARDIM ELDORADO", "cep": "78400000", "uf": "MT", "cod_municipio": "9069", "municipio": "DIAMANTINO", "ddd_1": "65", "telefone_1": "33362214", "ddd_2": "65", "telefone_2": "33361001", "ddd_fax": "65", "num_fax": "33361001", "email": "CONTABILIDADE@UNED.EDU.BR", "qualif_resp": "49", "capital_social": 224169490.0, "porte": "05", "opc_simples": "0", "data_opc_simples": "", "data_exc_simples": "", "opc_mei": "N", "sit_especial": "", "data_sit_especial": "", "id": "03617236000160"}, {"nome": "UNED", "tipo_pessoa": 1, "nivel": 3, "cnpj": "13381544000192", "matriz_filial": "1", "razao_social": "UNED CURSOS E PROJETOS LTDA", "nome_fantasia": "UNED", "situacao": "08", "data_situacao": "20131009", "motivo_situacao": "01", "nm_cidade_exterior": "", "cod_pais": "", "nome_pais": "", "cod_nat_juridica": "2062", "data_inicio_ativ": "20110316", "cnae_fiscal": "8541400", "tipo_logradouro": "RUA", "logradouro": "B", "numero": "S/N", "complemento": "", "bairro": "BELA VISTA", "cep": "78400000", "uf": "MT", "cod_municipio": "9069", "municipio": "DIAMANTINO", "ddd_1": "65", "telefone_1": "33361001", "ddd_2": "65", "telefone_2": "33361446", "ddd_fax": "65", "num_fax": "33362214", "email": "contabilidade@uned.edu.br", "qualif_resp": "49", "capital_social": 5000000.0, "porte": "05", "opc_simples": "0", "data_opc_simples": "", "data_exc_simples": "", "opc_mei": "N", "sit_especial": "", "data_sit_especial": "", "id": "13381544000192"}, {"nome": "PROCRIA VETERINARIA", "tipo_pessoa": 1, "nivel": 3, "cnpj": "35223961000140", "matriz_filial": "1", "razao_social": "M. DA C. MENDES FRANCA EIRELI", "nome_fantasia": "PROCRIA VETERINARIA", "situacao": "02", "data_situacao": "20191017", "motivo_situacao": "00", "nm_cidade_exterior": "", "cod_pais": "", "nome_pais": "", "cod_nat_juridica": "2305", "data_inicio_ativ": "20191017", "cnae_fiscal": "4771704", "tipo_logradouro": "RUA", "logradouro": "ALMIRANTE BARROSO", "numero": "SN", "complemento": "", "bairro": "CENTRO", "cep": "78410000", "uf": "MT", "cod_municipio": "9009", "municipio": "ALTO PARAGUAI", "ddd_1": "65", "telefone_1": "99887021", "ddd_2": "", "telefone_2": "", "ddd_fax": "", "num_fax": "", "email": "PROCRIAVETERINARIA@UOL.COM.BR", "qualif_resp": "65", "capital_social": 10000000.0, "porte": "03", "opc_simples": "5", "data_opc_simples": "20191017", "data_exc_simples": "", "opc_mei": "N", "sit_especial": "", "data_sit_especial": "", "id": "35223961000140"}, {"nome": "AILTON ALVES FRANCA", "tipo_pessoa": 2, "nivel": 2, "cpf": "***403281**", "id": "***403281**AILTON ALVES FRANCA"}, {"nome": "ORIGINAL RACOES E SAIS MINERAIS", "tipo_pessoa": 1, "nivel": 3, "cnpj": "01683624000113", "matriz_filial": "1", "razao_social": "BAJOSO INDUSTRIA, COMERCIO, IMPORTACAO E EXPORTACAO DE PRODUTOS AGROPECUARIOS LTDA", "nome_fantasia": "ORIGINAL RACOES E SAIS MINERAIS", "situacao": "02", "data_situacao": "20051103", "motivo_situacao": "00", "nm_cidade_exterior": "", "cod_pais": "", "nome_pais": "", "cod_nat_juridica": "2062", "data_inicio_ativ": "19970228", "cnae_fiscal": "1066000", "tipo_logradouro": "RODOVIA", "logradouro": "SENADOR ROBERTO CAMPOS, KM 6,5, A ESQUERDA", "numero": "SN", "complemento": "", "bairro": "BURITI", "cep": "78400000", "uf": "MT", "cod_municipio": "9069", "municipio": "DIAMANTINO", "ddd_1": "65", "telefone_1": "33362846", "ddd_2": "65", "telefone_2": "99877415", "ddd_fax": "", "num_fax": "", "email": "JUNIOR_SUBTIL@YAHOO.COM.BR", "qualif_resp": "49", "capital_social": 0.0, "porte": "03", "opc_simples": "6", "data_opc_simples": "20150101", "data_exc_simples": "20191231", "opc_mei": "N", "sit_especial": "", "data_sit_especial": "", "id": "01683624000113"}, {"nome": "FRANCISCO FERREIRA MENDES JUNIOR", "tipo_pessoa": 2, "nivel": 2, "cpf": "***874351**", "id": "***874351**FRANCISCO FERREIRA MENDES JUNIOR"}, {"nome": "SOLAR DOS PARECIS", "tipo_pessoa": 1, "nivel": 3, "cnpj": "10985740000188", "matriz_filial": "1", "razao_social": "TEIXEIRA & CIA LTDA", "nome_fantasia": "SOLAR DOS PARECIS", "situacao": "08", "data_situacao": "20110816", "motivo_situacao": "01", "nm_cidade_exterior": "", "cod_pais": "", "nome_pais": "", "cod_nat_juridica": "2062", "data_inicio_ativ": "20090724", "cnae_fiscal": "5510801", "tipo_logradouro": "AVENIDA", "logradouro": "MIGUEL ABIB", "numero": "S/N", "complemento": "", "bairro": "JD. ELDORADO", "cep": "78400000", "uf": "MT", "cod_municipio": "9069", "municipio": "DIAMANTINO", "ddd_1": "65", "telefone_1": "99871516", "ddd_2": "", "telefone_2": "", "ddd_fax": "", "num_fax": "", "email": "teixeiraecialtda@bol.com.br", "qualif_resp": "49", "capital_social": 20000000.0, "porte": "03", "opc_simples": "6", "data_opc_simples": "20090724", "data_exc_simples": "20110816", "opc_mei": "N", "sit_especial": "", "data_sit_especial": "", "id": "10985740000188"}, {"nome": "GILMAR FERREIRA MENDES", "tipo_pessoa": 2, "nivel": 0, "cpf": "***674286**", "id": "***674286**GILMAR FERREIRA MENDES"}, {"nome": "IGREJA SILOE DE SANTOS DUMONT", "tipo_pessoa": 1, "nivel": 1, "cnpj": "10625674000135", "matriz_filial": "1", "razao_social": "IGREJA SILOE DE SANTOS DUMONT", "nome_fantasia": "", "situacao": "02", "data_situacao": "20090120", "motivo_situacao": "00", "nm_cidade_exterior": "", "cod_pais": "", "nome_pais": "", "cod_nat_juridica": "3999", "data_inicio_ativ": "20090120", "cnae_fiscal": "9491000", "tipo_logradouro": "RUA", "logradouro": "TUPI", "numero": "138", "complemento": "", "bairro": "QUARTO DEPOSITO", "cep": "36240000", "uf": "MG", "cod_municipio": "5213", "municipio": "SANTOS DUMONT", "ddd_1": "32", "telefone_1": "32519128", "ddd_2": "", "telefone_2": "", "ddd_fax": "", "num_fax": "", "email": "SHALON.CONTABIL@HOTMAIL.COM", "qualif_resp": "16", "capital_social": 0.0, "porte": "05", "opc_simples": "0", "data_opc_simples": "", "data_exc_simples": "", "opc_mei": "N", "sit_especial": "", "data_sit_especial": "", "id": "10625674000135"}], "links": [{"tipo": "socio", "cod_qualificacao": "22", "qualificacao": "S\u00f3cio", "data_entrada": "20120312", "source": "***259691**GILMAR FERREIRA MENDES", "target": "15352563000116"}, {"tipo": "socio", "cod_qualificacao": "22", "qualificacao": "S\u00f3cio", "data_entrada": "19980417", "source": "***259691**GILMAR FERREIRA MENDES", "target": "02474172000122"}, {"tipo": "socio", "cod_qualificacao": "22", "qualificacao": "S\u00f3cio", "data_entrada": "20180705", "source": "***259691**GILMAR FERREIRA MENDES", "target": "30863314000189"}, {"tipo": "socio", "cod_qualificacao": "22", "qualificacao": "S\u00f3cio", "data_entrada": "20120312", "source": "02474172000122", "target": "15352563000116"}, {"tipo": "socio", "cod_qualificacao": "22", "qualificacao": "S\u00f3cio", "data_entrada": "20191205", "source": "02474172000122", "target": "35712241000148"}, {"tipo": "socio", "cod_qualificacao": "49", "qualificacao": "S\u00f3cio-Administrador", "data_entrada": "20170824", "source": "***232891**FRANCISCO SCHERTEL FERREIRA MENDES", "target": "15352563000116"}, {"tipo": "socio", "cod_qualificacao": "05", "qualificacao": "Administrador", "data_entrada": "20191205", "source": "***232891**FRANCISCO SCHERTEL FERREIRA MENDES", "target": "35712241000148"}, {"tipo": "socio", "cod_qualificacao": "49", "qualificacao": "S\u00f3cio-Administrador", "data_entrada": "20150804", "source": "***232891**FRANCISCO SCHERTEL FERREIRA MENDES", "target": "23083197000175"}, {"tipo": "socio", "cod_qualificacao": "22", "qualificacao": "S\u00f3cio", "data_entrada": "20160115", "source": "***232891**FRANCISCO SCHERTEL FERREIRA MENDES", "target": "23986844000159"}, {"tipo": "socio", "cod_qualificacao": "49", "qualificacao": "S\u00f3cio-Administrador", "data_entrada": "20170824", "source": "***232891**FRANCISCO SCHERTEL FERREIRA MENDES", "target": "02474172000122"}, {"tipo": "socio", "cod_qualificacao": "49", "qualificacao": "S\u00f3cio-Administrador", "data_entrada": "19991124", "source": "***905081**MARIA DA CONCEICAO MENDES FRANCA", "target": "03617236000160"}, {"tipo": "socio", "cod_qualificacao": "49", "qualificacao": "S\u00f3cio-Administrador", "data_entrada": "20110316", "source": "***905081**MARIA DA CONCEICAO MENDES FRANCA", "target": "13381544000192"}, {"tipo": "socio", "cod_qualificacao": "65", "qualificacao": "Titular Pessoa F\u00edsica Residente ou Domiciliado no Brasil", "data_entrada": "20191017", "source": "***905081**MARIA DA CONCEICAO MENDES FRANCA", "target": "35223961000140"}, {"tipo": "socio", "cod_qualificacao": "22", "qualificacao": "S\u00f3cio", "data_entrada": "20180705", "source": "***905081**MARIA DA CONCEICAO MENDES FRANCA", "target": "30863314000189"}, {"tipo": "socio", "cod_qualificacao": "49", "qualificacao": "S\u00f3cio-Administrador", "data_entrada": "19990924", "source": "***403281**AILTON ALVES FRANCA", "target": "01683624000113"}, {"tipo": "socio", "cod_qualificacao": "49", "qualificacao": "S\u00f3cio-Administrador", "data_entrada": "20180705", "source": "***403281**AILTON ALVES FRANCA", "target": "30863314000189"}, {"tipo": "socio", "cod_qualificacao": "22", "qualificacao": "S\u00f3cio", "data_entrada": "19990924", "source": "***874351**FRANCISCO FERREIRA MENDES JUNIOR", "target": "01683624000113"}, {"tipo": "socio", "cod_qualificacao": "22", "qualificacao": "S\u00f3cio", "data_entrada": "20090724", "source": "***874351**FRANCISCO FERREIRA MENDES JUNIOR", "target": "10985740000188"}, {"tipo": "socio", "cod_qualificacao": "49", "qualificacao": "S\u00f3cio-Administrador", "data_entrada": "20180705", "source": "***874351**FRANCISCO FERREIRA MENDES JUNIOR", "target": "30863314000189"}, {"tipo": "socio", "cod_qualificacao": "16", "qualificacao": "Presidente", "data_entrada": "20090120", "source": "***674286**GILMAR FERREIRA MENDES", "target": "10625674000135"}]}
+</script>
+
+<script type="text/javascript">
+    var mapMatrizFilial = {"1":"Matriz",
+                           "2":"Filial"};
+
+    var mapSituacao = {"01":"Nula",
+                        "02":"Ativa",
+                        "03":"Suspensa",
+                        "04":"Inapta",
+                        "08":"Baixada"};
+
+    function converteData(data) {
+        if (data.length == 8) {
+            return data.replace( /(\d{4})(\d{2})(\d{2})/, "$3/$2/$1");
+        } else {
+            return data;
+        }
+    }
+
+    var tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+    var svg = d3.select("svg"),
+        width = +svg.attr("width"),
+        height = +svg.attr("height"),
+        node,
+        link;
+
+    svg.append('defs').append('marker')
+        .attrs({'id':'arrowhead',
+            'viewBox':'-0 -5 10 10',
+            'refX':18,
+            'refY':0,
+            'orient':'auto',
+            'markerWidth':10,
+            'markerHeight':9,
+            'xoverflow':'visible'})
+        .append('svg:path')
+        .attr('d', 'M 0,-5 L 10 ,0 L 0,5')
+        .attr('fill', '#999')
+        .style('stroke','none');
+
+    var simulation = d3.forceSimulation()
+        .force("link", d3.forceLink().id(function (d) {return d.id;}).distance(100).strength(1))
+        .force("charge", d3.forceManyBody())
+        .force("center", d3.forceCenter(width / 2, height / 2));
+
+    var exibeRotuloNo = false;
+    var exibeRotuloVinculo = false;
+
+    function update(links, nodes) {
+
+        link = svg.selectAll(".link")
+            .data(links)
+            .enter()
+            .append("line")
+            .attr("class", "link")
+            .attr("stroke-dasharray", function (d,i) {
+                if (d.tipo == 'filial') {return '5,5';}
+                else {return '0';}
+            })
+            .attr('marker-end','url(#arrowhead)')
+
+        edgepaths = svg.selectAll(".edgepath")
+            .data(links)
+            .enter()
+            .append('path')
+            .attrs({
+                'class': 'edgepath',
+                'fill-opacity': 0,
+                'stroke-opacity': 0,
+                'id': function (d, i) {return 'edgepath' + i}
+            })
+            .style("pointer-events", "none");
+
+        edgelabels = svg.selectAll(".edgelabel")
+            .data(links)
+            .enter()
+            .append('text')
+            .style("pointer-events", "none")
+            .attrs({
+                'class': 'edgelabel',
+                'id': function (d, i) {return 'edgelabel' + i},
+                'font-size': 10,
+                'fill': '#aaa'
+            });
+
+        node = svg.selectAll(".node")
+            .data(nodes)
+            .enter()
+            .append("g")
+            .attr("class", "node")
+            .call(d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+            );
+
+        node.append("circle")
+            .attr("r", 8)
+            .style("fill", function (d, i) {
+            	if (d.tipo_pessoa == 1) { return '#01579B'; }
+            	else if (d.tipo_pessoa == 2) { return '#2E7D32'; }
+                else { return '#3A3A3A'; }
+            })
+            .style("stroke", function (d, i) {
+                if (d.nivel == 0) { return '#EE0000'; }
+            })
+            .style("stroke-width", function (d, i) {
+                if (d.nivel == 0) { return 2; }
+            })
+            .style("fill-opacity", function (d,i) {
+                if ((d.tipo_pessoa == 1) && (d.situacao != '02')) { return 0.4; }
+                else { return 1.0; }
+            })
+
+        node
+            .on("mouseover", tooltipDetalhe_On)
+            .on("mouseout", tooltipDetalhe_Off);
+
+        simulation
+            .nodes(nodes)
+            .on("tick", ticked);
+
+        simulation.force("link")
+            .links(links);
+    }
+
+    function nodeLabel_OnOff() {
+        exibeRotuloNo = !exibeRotuloNo;
+        if (exibeRotuloNo) {
+            nodeLabel_On();
+        } else {
+            nodeLabel_Off();
+        }
+    }
+
+    function edgeLabel_OnOff() {
+        exibeRotuloVinculo = !exibeRotuloVinculo;
+        if (exibeRotuloVinculo) {
+            edgeLabel_On();
+        } else {
+            edgeLabel_Off();
+        }
+    }
+
+    function nodeLabel_On() {
+        node = svg.selectAll(".node");
+
+        node.append("text")
+            .attr("dy", -5)
+            .attr("dx",  7)
+            .text(function (d) {return d.nome;});        
+    }
+
+    function nodeLabel_Off() {
+        svg.selectAll(".node text").remove()
+    }
+
+    function edgeLabel_On() {
+        edgelabels.append('textPath')
+            .attr('xlink:href', function (d, i) {return '#edgepath' + i})
+            .style("text-anchor", "middle")
+            .style("pointer-events", "none")
+            .attr("startOffset", "50%")
+            .text(function (d) {
+                return (d.tipo=='filial'?'Filial':d.qualificacao)            
+            });
+    }
+
+    function edgeLabel_Off() {
+        svg.selectAll(".edgelabel textPath").remove()
+    }
+
+    function ticked() {
+        link
+            .attr("x1", function (d) {return d.source.x;})
+            .attr("y1", function (d) {return d.source.y;})
+            .attr("x2", function (d) {return d.target.x;})
+            .attr("y2", function (d) {return d.target.y;});
+
+        node
+            .attr("transform", function (d) {return "translate(" + d.x + ", " + d.y + ")";});
+
+        edgepaths.attr('d', function (d) {
+            return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
+        });
+
+        edgelabels.attr('transform', function (d) {
+            if (d.target.x < d.source.x) {
+                var bbox = this.getBBox();
+
+                rx = bbox.x + bbox.width / 2;
+                ry = bbox.y + bbox.height / 2;
+                return 'rotate(180 ' + rx + ' ' + ry + ')';
+            }
+            else {
+                return 'rotate(0)';
+            }
+        });
+
+    }
+
+    function dragstarted(d) {
+        if (!d3.event.active) simulation.alphaTarget(0.3).restart()
+        d.fx = d.x;
+        d.fy = d.y;
+    }
+
+    function dragged(d) {
+        d.fx = d3.event.x;
+        d.fy = d3.event.y;
+    }
+
+    /**
+     * Liga tooltip com informações sobre node. Adaptado de:
+     *     https://bl.ocks.org/gcalmettes/95e3553da26ec90fd0a2890a678f3f69
+     * @param {Data} d Dado associado ao evento de mouse over.
+     */
+    function tooltipDetalhe_On(d) {
+      var gX;
+
+      if (d.x < window.visualViewport.width - 420) {
+          gX = window.visualViewport.width - 410;
+      } else {
+          gX = 10;
+      }
+
+      let gY = window.visualViewport.height - 250;
+
+      tooltip.transition()
+        .delay(200)
+        .duration(200)
+        .style("opacity", 0.85);
+
+      if (d.tipo_pessoa == 1) {
+        var tip_html;
+        tip_html = "<strong>CNPJ:</strong> " + d.cnpj + "<br/>" +
+                 "<strong>R.Social:</strong> " + d.razao_social + "<br/>" +
+                 "<strong>Nome Fantasia:</strong> " + d.nome_fantasia + "<br/>" +
+                 "<strong>Matriz/Filial:</strong> " + mapMatrizFilial[d.matriz_filial] + "<br/>" +
+                 "<strong>Situação:</strong> " + mapSituacao[d.situacao] + "<br/>" +
+                 "<strong>Data da Situação:</strong> " + converteData(d.data_situacao) + "<br/>" +
+                 "<strong>Início da Atividade em:</strong> " + converteData(d.data_inicio_ativ) + "<br/>" +
+                 "<strong>CNAE Principal:</strong> " + d.cnae_fiscal + "<br/>" +
+                 "<strong>UF:</strong> " + d.uf + "<br/>" +
+                 "<strong>Município:</strong> " + d.municipio + "<br/>";
+
+        if (d.sit_especial != "") {
+            tip_html += "<strong>Sit. Especial:</strong> " + d.sit_especial + "<br/>" +
+                       "<strong>Data da Sit. Especial:</strong> " + converteData(d.data_sit_especial) + "<br/>";
+        }
+
+        tooltip.html(tip_html);
+      } else {
+        tooltip.html("<strong>CPF:</strong> " + d.cpf + "<br/>" +
+                     "<strong>Nome:</strong> " + d.nome + "<br/>" 
+        );
+      }
+
+      tooltip
+        .style("left", gX + "px")
+        .style("top", gY + "px");
+    }
+
+    /**
+     * Desliga tooltip com informações sobre node. Adaptado de:
+     *     https://bl.ocks.org/gcalmettes/95e3553da26ec90fd0a2890a678f3f69
+     * @param {Data} d Dado associado ao evento de mouse over.
+     */
+    function tooltipDetalhe_Off(d) {
+      tooltip.transition()
+        .delay(1000)
+        .duration(200)
+        .style("opacity", 0);
+}
+
+    var grafo = JSON.parse(document.getElementById('grafo').innerHTML);
+    update(grafo.links, grafo.nodes);
+
+    nodeLabel_OnOff();
+</script>
+
+</body>
+</html>
